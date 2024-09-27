@@ -1,15 +1,15 @@
 using System.Runtime.CompilerServices;
 using Microsoft.Data.SqlClient;
 using ContosoSuitesWebAPI.Entities;
-
-using Microsoft.SemanticKernel;
 using System.ComponentModel;
+using Microsoft.SemanticKernel;
+
 
 namespace ContosoSuitesWebAPI.Services;
 
 public class DatabaseService : IDatabaseService
 {
-    [KernelFunction]
+    [KernelFunction("get_hotels")]
     [Description("Get all hotels")]
     public async Task<IEnumerable<Hotel>> GetHotels()
     {

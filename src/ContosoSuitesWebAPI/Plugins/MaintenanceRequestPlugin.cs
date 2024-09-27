@@ -1,7 +1,11 @@
 ﻿using System.ComponentModel; 
 using ContosoSuitesWebAPI.Entities;
 using Microsoft.Azure.Cosmos;
-// Exercise 5 Task 2 TODO #5: Add a library references support Semantic Kernel.
+// Exercise 5 Task 2 TODO #5: Addusing Microsoft.SemanticKernel;
+using Microsoft.SemanticKernel;
+using Microsoft.SemanticKernel.ChatCompletion;
+using Microsoft.SemanticKernel.Connectors.OpenAI;
+
 
 namespace ContosoSuitesWebAPI.Plugins
 {
@@ -14,7 +18,10 @@ namespace ContosoSuitesWebAPI.Plugins
         // the accurately describes the purpose of the function, such as "Creates a new maintenance request for a hotel."
 
         // Exercise 5 Task 2 TODO #7: Add Kernel as the first parameter to the function.
-        public async Task<MaintenanceRequest> CreateMaintenanceRequest(int HotelId, string Hotel, string Details, int? RoomNumber, string? location)
+        [KernelFunction("create_maintenance_request")]
+        [Description("Creates a new maintenance request for a hotel.")]
+
+        public async Task<MaintenanceRequest> CreateMaintenanceRequest(Kernel kernel,int HotelId, string Hotel, string Details, int? RoomNumber, string? location)
         {
             try
             {
@@ -41,9 +48,11 @@ namespace ContosoSuitesWebAPI.Plugins
         // Exercise 5 Task 2 TODO #8: Add KernelFunction and Description descriptors to the function.
         // The function should be named "save_maintenance_request" and it should have a description
         // the accurately describes the purpose of the function, such as "Saves a maintenance request to the database for a hotel."
+        [KernelFunction("save_maintenance_request")]
+        [Description("Saves a maintenance request to the database for a hotel.")]
 
         // Exercise 5 Task 2 TODO #9: Add Kernel as the first parameter to the function.
-        public async Task SaveMaintenanceRequest(MaintenanceRequest maintenanceRequest)
+        public async Task SaveMaintenanceRequest(Kernel kernel,MaintenanceRequest maintenanceRequest)
         {
             var db = _cosmosClient.GetDatabase("ContosoSuites");
             var container = db.GetContainer("MaintenanceRequests");
