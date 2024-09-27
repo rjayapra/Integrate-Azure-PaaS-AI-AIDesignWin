@@ -66,5 +66,5 @@ jobs:
 
     - uses: azure/webapps-deploy@v2
       with:
-        app-name: '{your_prefix}-dash'
+        app-name: 'jckunnnxjigmu-dash'
         images: jckunnnxjigmucosureg.azurecr.io/techexcel/csdash:${{github.run_number}}
